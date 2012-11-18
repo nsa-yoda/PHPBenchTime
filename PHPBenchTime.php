@@ -1,6 +1,6 @@
 <?php
 /**
- * BenchTime
+ * PHPBenchTime
  * A light static benchmark timer class for PHP
  *
  * @author Juan L. Sanchez <juan.sanchez@juanleonardosanchez.com>
@@ -9,7 +9,7 @@
  * @internal 11.17.2012
  */
 
-class BenchTime{
+class PHPBenchTime{
 	private static $_startTime;
 	private static $_pauseTime;
 	private static $_endTime;
