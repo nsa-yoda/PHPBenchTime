@@ -7,6 +7,7 @@
  * @license MIT
  * @version 1.0.1
  * @internal 11.17.2012
+ * @todo Namespace
  */
 
 class PHPBenchTime{
@@ -18,6 +19,8 @@ class PHPBenchTime{
 
 	/**
 	 * Construct
+     *
+     * @todo Something in the construct()? Remove?
 	 */
 	public function __construct(){}
 
@@ -54,6 +57,7 @@ class PHPBenchTime{
 	 * Pause timer function
 	 *
 	 * @return true Always returns true
+     * @todo Implement Pause()
 	 */
 	public final static function Pause(){
 
@@ -80,6 +84,7 @@ class PHPBenchTime{
 	 * Unpause timer function
 	 *
 	 * @return true Always returns true
+     * @todo Implement Unpause()
 	 */
 	public final static function Unpause(){}
 
