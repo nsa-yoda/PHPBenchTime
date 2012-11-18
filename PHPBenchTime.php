@@ -19,8 +19,8 @@ class PHPBenchTime{
 
 	/**
 	 * Construct
-     *
-     * @todo Something in the construct()? Remove?
+         *
+         * @todo Something in the construct()? Remove?
 	 */
 	public function __construct(){}
 
@@ -57,7 +57,7 @@ class PHPBenchTime{
 	 * Pause timer function
 	 *
 	 * @return true Always returns true
-     * @todo Implement Pause()
+         * @todo Implement Pause()
 	 */
 	public final static function Pause(){
 
@@ -84,7 +84,7 @@ class PHPBenchTime{
 	 * Unpause timer function
 	 *
 	 * @return true Always returns true
-     * @todo Implement Unpause()
+         * @todo Implement Unpause()
 	 */
 	public final static function Unpause(){}
 
