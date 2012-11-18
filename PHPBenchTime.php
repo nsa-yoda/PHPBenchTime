@@ -1,14 +1,14 @@
 <?php
-/**  
+/**
  * BenchTime
  * A light static benchmark timer class for PHP
- *  
+ *
  * @author Juan L. Sanchez <juan.sanchez@juanleonardosanchez.com>
  * @license MIT
  * @version 1.0.0
  * @internal 11.17.2012
- */  
- 
+ */
+
 class BenchTime{
 	private static $_startTime;
 	private static $_pauseTime;
@@ -17,24 +17,24 @@ class BenchTime{
 	private static $_lapName;
 
 	/**
-	 * Construct 
+	 * Construct
 	 */
 	public function __construct(){}
-	
+
 	/**
 	 * Start timer function
-	 * 
+	 *
 	 * @return true Always returns true
 	 */
 	public final static function Start($lapName){
 		if(empty(self::$_phpVersion))
 			self::_PHPVersion();
-		
+
 		if(isset($lapName)){
 			self::$_startTime = (array)self::$_startTime;
 			self::$_lapName = $lapName;
 		}
-		
+
 		# Set the current start value
 		if(is_array(self::$_startTime)){ # Check if array (lap)
 			if(empty(self::$_lapName))
@@ -52,40 +52,40 @@ class BenchTime{
 
 	/**
 	 * Pause timer function
-	 * 
+	 *
 	 * @return true Always returns true
 	 */
 	public final static function Pause(){
-		
+
 	}
 
 	/**
 	 * Lap timer function
 	 * Modifies the return into an array
-	 * 
+	 *
 	 * @return true Always returns true
 	 */
 	public final static function Lap($lapName = ""){
 		if(isset($lapName))
 			self::$_lapName = $lapName;
-		
+
 		# Cast _startTime as array if its not an array, else
 		if(!is_array(self::$_startTime))
 			self::$_startTime = array(self::$_startTime);
-		
+
 		self::Start();
 	}
 
 	/**
 	 * Unpause timer function
-	 * 
+	 *
 	 * @return true Always returns true
 	 */
 	public final static function Unpause(){}
 
 	/**
-	 * End timer function 
-	 * 
+	 * End timer function
+	 *
 	 * @return true Always returns true
 	 */
 	public final static function End(){
@@ -93,8 +93,8 @@ class BenchTime{
 			return self::$_startTime;
 		else {
 			return array(
-					'Start' => self::$_startTime, 
-					'End' => self::_CurrentTimeFloat(), 
+					'Start' => self::$_startTime,
+					'End' => self::_CurrentTimeFloat(),
 					'Total' => self::_TotalTime()
 				   );
 		}
@@ -102,7 +102,7 @@ class BenchTime{
 
 	/**
 	 * Get the current timer value
-	 * 
+	 *
 	 * @return rounded current timer value
 	 * @param int $decimals Number of decimals to round to
 	 */
@@ -112,7 +112,7 @@ class BenchTime{
 
   	/**
 	 * Get the current time in seconds
-	 * 
+	 *
 	 * @return float Returns current time in float seconds
 	 */
   	private final static function _CurrentTimeFloat(){
@@ -123,10 +123,10 @@ class BenchTime{
 	    	return microtime(true);
 		}
 	}
-	
+
 	/**
 	 * Get the current PHP version
-	 * 
+	 *
 	 * @return true Always returns true
 	 * @internal Sets self::$_phpVersion
 	 */
@@ -136,16 +136,4 @@ class BenchTime{
 	}
 
 }
-
-
-echo "<pre>";
-BenchTime::Start("Start");
-sleep(1);
-BenchTime::Lap("First Lap");
-sleep(2);
-BenchTime::Lap("Second Lap");
-$time = BenchTime::End();
-print_r($time);
-echo "</pre>";
-
 ?>
