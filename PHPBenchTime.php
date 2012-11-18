@@ -5,7 +5,7 @@
  *
  * @author Juan L. Sanchez <juan.sanchez@juanleonardosanchez.com>
  * @license MIT
- * @version 1.0.0
+ * @version 1.0.1
  * @internal 11.17.2012
  */
 
