@@ -116,3 +116,5 @@ for Pause and Unpause, but they have not yet been implemented.
 
 PHPBenchTime could benefit from a bit of code cleanup and performance mods, 
 as well as DRY methodologies in certain areas.
+
+Namespaces? 
