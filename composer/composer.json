@@ -1,7 +1,7 @@
 {
     "name": "jsanc623/phpbenchtime",
     "description": "A light static benchmark timer class for PHP",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "license": "MIT",
     "homepage": "https://www.github.com/jsanc623/PHPBenchTime",
     "authors": [
