@@ -3,6 +3,10 @@ PHPBenchTime v1.1.0
 
 A light static benchmark timer class for PHP
 
+On Packagist
+============
+https://packagist.org/packages/jsanc623/phpbenchtime
+
 Methods
 =======
 ```
