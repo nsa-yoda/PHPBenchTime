@@ -1,0 +1,17 @@
+{
+    "name": "jsanc623/phpbenchtime",
+    "description": "A light static benchmark timer class for PHP.",
+    "license": "MIT",
+    "require": {
+        "jsanc623/phpbenchtime": "1.1.0"
+    },
+    "authors": [
+        {
+            "name": "Juan Sanchez",
+            "email": "juan.sanchez@juanleonardosanchez.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

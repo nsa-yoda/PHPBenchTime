@@ -1,4 +1,4 @@
-PHPBenchTime v1.0.1
+PHPBenchTime v1.1.0
 ===================
 
 A light static benchmark timer class for PHP
