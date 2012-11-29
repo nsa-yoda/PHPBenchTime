@@ -1,7 +1,7 @@
-PHPBenchTime v1.1.0
+PHPBenchTime v1.2.0
 ===================
 
-A light static benchmark timer class for PHP
+A light benchmark timer class for PHP
 
 On Packagist
 ============
@@ -22,10 +22,20 @@ private _PHPVersion();
 
 Simple Usage
 ============
-PHPBenchTime is simple to use, lets start a timer:
+PHPBenchTime is simple to use, let's require the file and use the namespace with 
+a nickname:
 
 ```
-BenchTime::Start();
+require('PHPBenchTime.php');
+use PHPBenchTime\Timer as Timer;
+$Benchmark = new Timer;
+```
+
+
+That was easy! Now lets start a timer:
+
+```
+$Benchmark->Start();
 ```
 
 Then lets just sleep for 3 seconds:
@@ -35,7 +45,7 @@ sleep(3);
 
 Now, lets end the timer, and put results in $time:
 ```
-$time = BenchTime::End();
+$time = $Benchmark->End();
 ```
 
 When we end a timer, we receive an array back, containing the start time,
@@ -56,20 +66,24 @@ PHPBenchTime also allows you to set laps between code execution, which allows
 you to determine what part of your code is causing a bottleneck. Let's start a timer:
 
 ```
-BenchTime::Start();
+require('PHPBenchTime.php');
+use PHPBenchTime\Timer as Timer;
+$Benchmark = new Timer;
+
+$Benchmark->Start();
 ```
 
 Then, let's sleep for a couple of seconds between laps:
 ```
 sleep(1);
-BenchTime::Lap();
+$Benchmark->Lap();
 sleep(2);
-BenchTime::Lap();
+$Benchmark->Lap();
 ```
 
 Now, let's end the timer:
 ```
-$time = BenchTime::End();
+$time = $Benchmark->End();
 ```
 
 Let's see the results:
@@ -87,20 +101,24 @@ Advanced Usage : Named Laps
 PHPBenchTime can also perform named laps, laps that allow you to name each one
 to know more safely where each lap is located...so again, let's start a timer:
 ```
-BenchTime::Start("Start");
+require('PHPBenchTime.php');
+use PHPBenchTime\Timer as Timer;
+$Benchmark = new Timer;
+
+$Benchmark->Start("Start");
 ```
 
 Then, let's sleep for a couple of seconds between laps:
 ```
 sleep(1);
-BenchTime::Lap("First Lap");
+$Benchmark->Lap("First Lap");
 sleep(2);
-BenchTime::Lap("Second Lap");
+$Benchmark->Lap("Second Lap");
 ```
 
 Now, let's end the timer:
 ```
-$time = BenchTime::End();
+$time = $Benchmark->End();
 ```
 
 Let's see the result:
@@ -120,3 +138,11 @@ for Pause and Unpause, but they have not yet been implemented.
 
 PHPBenchTime could benefit from a bit of code cleanup and performance mods, 
 as well as DRY methodologies in certain areas.
+
+HISTORY
+=======
+
+v1.0.0: Static Birth!
+v1.1.0: Static Namespaces!
+v1.2.0: Non-Static Namespaces!
+

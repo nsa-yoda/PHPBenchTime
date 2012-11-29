@@ -1,22 +1,22 @@
 <?php
 /**
  * PHPBenchTime
- * A light static benchmark timer class for PHP
+ * A light benchmark timer class for PHP
  *
  * @author Juan L. Sanchez <juan.sanchez@juanleonardosanchez.com>
  * @license MIT
- * @version 1.0.1
+ * @version 1.2.0
  * @internal 11.17.2012
  */
 
 namespace PHPBenchTime;
 
 class Timer{
-    private static $_startTime;
-    private static $_pauseTime;
-    private static $_endTime;
-    private static $_phpVersion;
-    private static $_lapName;
+    private $_startTime;
+    private $_pauseTime;
+    private $_endTime;
+    private $_phpVersion;
+    private $_lapName;
 
     /**
      * Construct
@@ -29,27 +29,27 @@ class Timer{
      *
      * @return true Always returns true
      */
-    public final static function Start($lapName){
-        if(empty(self::$_phpVersion))
-            self::_PHPVersion();
+    public final function Start($lapName){
+        if(empty($this->_phpVersion))
+            $this->_PHPVersion();
 
         if(isset($lapName)){
-            self::$_startTime = (array)self::$_startTime;
-            self::$_lapName = $lapName;
+            $this->_startTime = (array)$this->_startTime;
+            $this->_lapName = $lapName;
         }
 
         # Set the current start value
-        if(is_array(self::$_startTime)){ # Check if array (lap)
-            if(empty(self::$_lapName))
-                self::$_startTime[] = self::_CurrentTimeFloat();
+        if(is_array($this->_startTime)){ # Check if array (lap)
+            if(empty($this->_lapName))
+                $this->_startTime[] = $this->_CurrentTimeFloat();
             else
-                self::$_startTime[self::$_lapName] = self::_CurrentTimeFloat();
+                $this->_startTime[$this->_lapName] = $this->_CurrentTimeFloat();
         } else {
-            self::$_startTime = self::_CurrentTimeFloat();
+            $this->_startTime = $this->_CurrentTimeFloat();
         }
 
-        self::$_pauseTime = 0;
-        self::$_endTime = 0;
+        $this->_pauseTime = 0;
+        $this->_endTime = 0;
         return true;
     }
 
@@ -60,15 +60,15 @@ class Timer{
      *
      * @return true Always returns true
      */
-    public final static function Lap($lapName = ""){
+    public final function Lap($lapName = ""){
         if(isset($lapName))
-            self::$_lapName = $lapName;
+            $this->_lapName = $lapName;
 
         # Cast _startTime as array if its not an array, else
-        if(!is_array(self::$_startTime))
-            self::$_startTime = array(self::$_startTime);
+        if(!is_array($this->_startTime))
+            $this->_startTime = array($this->_startTime);
 
-        self::Start();
+        $this->Start();
     }
 
 
@@ -78,7 +78,7 @@ class Timer{
      * @return true Always returns true
      * @todo Implement Pause()
      */
-    public final static function Pause(){
+    public final function Pause(){
 
     }
 
@@ -89,7 +89,7 @@ class Timer{
      * @return true Always returns true
      * @todo Implement Unpause()
      */
-    public final static function Unpause(){}
+    public final function Unpause(){}
 
 
     /**
@@ -97,14 +97,14 @@ class Timer{
      *
      * @return true Always returns true
      */
-    public final static function End(){
-        if(is_array(self::$_startTime))
-            return self::$_startTime;
+    public final function End(){
+        if(is_array($this->_startTime))
+            return $this->_startTime;
         else {
             return array(
-                    'Start' => self::$_startTime,
-                    'End' => self::_CurrentTimeFloat(),
-                    'Total' => self::_TotalTime()
+                    'Start' => $this->_startTime,
+                    'End' => $this->_CurrentTimeFloat(),
+                    'Total' => $this->_TotalTime()
                    );
         }
     }
@@ -116,8 +116,8 @@ class Timer{
      * @return rounded current timer value
      * @param int $decimals Number of decimals to round to
      */
-    private final static function _TotalTime($decimals = 4){
-        return round((self::_CurrentTimeFloat() - self::$_startTime), $decimals);
+    private final function _TotalTime($decimals = 4){
+        return round(($this->_CurrentTimeFloat() - $this->_startTime), $decimals);
     }
 
     /**
@@ -125,8 +125,8 @@ class Timer{
      *
      * @return float Returns current time in float seconds
      */
-    private final static function _CurrentTimeFloat(){
-        if(self::$_phpVersion < 5.0){
+    private final function _CurrentTimeFloat(){
+        if($this->_phpVersion < 5.0){
             list($usec, $sec) = explode(" ", microtime());
             return ( (float)$usec + (float)$sec );
         } else {
@@ -137,10 +137,10 @@ class Timer{
     /**
      * Get the current PHP version
      *
-     * @internal Sets self::$_phpVersion
+     * @internal Sets $this->_phpVersion
      */
-    private final static function _PHPVersion(){
-        self::$_phpVersion = (string)substr(PHP_VERSION, 0, 3);
+    private final function _PHPVersion(){
+        $this->_phpVersion = (string)substr(PHP_VERSION, 0, 3);
     }
 }
 ?>

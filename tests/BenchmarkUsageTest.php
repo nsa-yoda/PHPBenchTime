@@ -52,9 +52,10 @@ use PHPBenchTime\Timer;</code></pre>
             </section>
             <section>
                 <h2>Basic Usage: Sleep for One Second</h2>
-                <pre><code>PHPBenchTime\Timer::Start();
-$end = PHPBenchTime\Timer::End();
+                <pre><code>$Benchmark = new PHPBenchTime\Timer();
+$Benchmark->Start();
 sleep(1);
+$end = $Benchmark->End();
 
 /** RESULT:
  * Array ( 
@@ -65,14 +66,15 @@ sleep(1);
             </section>
             <section>
                 <h2>Basic Usage: Laps</h2>
-                    <pre><code>Timer::Start();
+                    <pre><code>$Benchmark = new PHPBenchTime\Timer();
+$Benchmark->Start();
 sleep(1);
-Timer::Lap();
+$Benchmark->Lap();
 sleep(1);
-Timer::Lap();
+$Benchmark->Lap();
 sleep(1);
-Timer::Lap();
-$end = Timer::End();
+$Benchmark->Lap();
+$end = $Benchmark->End();
 
 /** RESULT:
  * Array (
@@ -84,14 +86,15 @@ $end = Timer::End();
             </section>
             <section>
                 <h2>Advanced Usage: Named Laps</h2>
-                    <pre><code>Timer::Start("Start Timer");
+                    <pre><code>$Benchmark = new PHPBenchTime\Timer();
+$Benchmark->Start("Start Timer");
 sleep(1);
-Timer::Lap("Slept for 1 second");
+$Benchmark->Lap("Slept for 1 second");
 sleep(1);
-Timer::Lap("Slept for 1 more second");
+$Benchmark->Lap("Slept for 1 more second");
 sleep(1);
-Timer::Lap("Slept for another second");
-$end = Timer::End();
+$Benchmark->Lap("Slept for another second");
+$end = $Benchmark->End();
 
 /** RESULT:
  * Array (
