@@ -142,7 +142,7 @@ as well as DRY methodologies in certain areas.
 HISTORY
 =======
 
-v1.0.0: Static Birth! 
-v1.1.0: Static Namespaces! 
-v1.2.0: Non-Static Namespaces! 
+* v1.0.0: Static Birth! 
+* v1.1.0: Static Namespaces! 
+* v1.2.0: Non-Static Namespaces! 
 
