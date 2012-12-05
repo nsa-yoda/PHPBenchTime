@@ -3,7 +3,7 @@
     "description": "A light benchmark timer class for PHP.",
     "license": "MIT",
     "require": {
-        "jsanc623/phpbenchtime": "1.2.0"
+        "jsanc623/phpbenchtime": "1.3.0"
     },
     "authors": [
         {
