@@ -1,4 +1,4 @@
-PHPBenchTime v1.2.0
+PHPBenchTime v1.3.0
 ===================
 
 A light benchmark timer class for PHP
@@ -149,4 +149,4 @@ HISTORY
 * v1.0.0: Static Birth! 
 * v1.1.0: Static Namespaces! 
 * v1.2.0: Non-Static Namespaces! 
-
+* v1.3.0: Laps! Laps! Laps! 
