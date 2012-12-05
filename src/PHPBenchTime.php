@@ -99,7 +99,11 @@ class Timer{
      */
     public final function End(){
         if(is_array($this->_startTime))
-            return $this->_startTime;
+            return array(
+            	'Laps' => $this->_startTime,
+            	'Total' => round(($this->_CurrentTimeFloat() - $this->_startTime[0]), 4)
+            );
+            
         else {
             return array(
                     'Start' => $this->_startTime,
