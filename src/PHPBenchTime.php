@@ -4,7 +4,6 @@
  * A light benchmark timer class for PHP
  *
  * @author Juan L. Sanchez <juanleonardosanchez.com>
- * @coauthor Andy Fleming <andyfleming.com>
  * @license MIT
  * @version 1.3.0
  * @internal 12.04.2012
