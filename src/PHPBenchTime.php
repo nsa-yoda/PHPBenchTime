@@ -147,4 +147,3 @@ class Timer{
         $this->_phpVersion = (string)substr(PHP_VERSION, 0, 3);
     }
 }
-?>
