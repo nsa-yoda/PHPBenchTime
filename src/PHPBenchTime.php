@@ -29,7 +29,7 @@ class Timer{
      *
      * @return true Always returns true
      */
-    public final function Start($lapName){
+    public final function Start($lapName = ""){
         if(empty($this->_phpVersion))
             $this->_PHPVersion();
 
