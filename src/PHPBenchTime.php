@@ -22,7 +22,9 @@ class Timer {
     /**
      * Construct
      */
-    public function __construct() { }
+    public function __construct() {
+
+    }
 
 
     /**
@@ -33,7 +35,7 @@ class Timer {
      */
     public final function Start( $lapName = "" ) {
         if ( empty( $this->_phpVersion ) )
-            $this->_PHPVersion();
+            $this->GetPHPVersion();
 
         if ( isset( $lapName ) ) {
             $this->_startTime = (array)$this->_startTime;
@@ -43,11 +45,11 @@ class Timer {
         # Set the current start value
         if ( is_array( $this->_startTime ) ) { # Check if array (lap)
             if ( empty( $this->_lapName ) )
-                $this->_startTime[] = $this->_CurrentTimeFloat();
+                $this->_startTime[] = $this->GetCurrentTime();
             else
-                $this->_startTime[$this->_lapName] = $this->_CurrentTimeFloat();
+                $this->_startTime[$this->_lapName] = $this->GetCurrentTime();
         } else {
-            $this->_startTime = $this->_CurrentTimeFloat();
+            $this->_startTime = $this->GetCurrentTime();
         }
 
         $this->_pauseTime = 0;
@@ -92,7 +94,9 @@ class Timer {
      * @return true Always returns true
      * @todo Implement Unpause()
      */
-    public final function Unpause() { }
+    public final function Unpause() {
+
+    }
 
 
     /**
@@ -104,14 +108,14 @@ class Timer {
         if ( is_array( $this->_startTime ) )
             return array(
                 'Laps'  => $this->_startTime,
-                'Total' => round( ( $this->_CurrentTimeFloat() - $this->_startTime[0] ), 4 )
+                'Total' => round( ( $this->GetCurrentTime() - $this->_startTime[0] ), 4 )
             );
 
         else {
             return array(
                 'Start' => $this->_startTime,
-                'End'   => $this->_CurrentTimeFloat(),
-                'Total' => $this->_TotalTime()
+                'End'   => $this->GetCurrentTime(),
+                'Total' => $this->GetTotalTime()
             );
         }
     }
@@ -123,8 +127,8 @@ class Timer {
      * @return float current timer value
      * @param  int   Number of decimals to round to
      */
-    private final function _TotalTime( $decimals = 4 ) {
-        return round( ( $this->_CurrentTimeFloat() - $this->_startTime ), $decimals );
+    private final function GetTotalTime( $decimals = 4 ) {
+        return round( ( $this->GetCurrentTime() - $this->_startTime ), $decimals );
     }
 
     /**
@@ -132,7 +136,7 @@ class Timer {
      *
      * @return float Returns current time in float seconds
      */
-    private final function _CurrentTimeFloat() {
+    private final function GetCurrentTime() {
         if ( $this->_phpVersion < 5.0 ) {
             list( $usec, $sec ) = explode( " ", microtime() );
 
@@ -147,7 +151,7 @@ class Timer {
      *
      * @internal Sets $this->_phpVersion
      */
-    private final function _PHPVersion() {
+    private final function GetPHPVersion() {
         $this->_phpVersion = (string)substr( PHP_VERSION, 0, 3 );
     }
 }

@@ -15,9 +15,9 @@ public Lap();
 public Pause();
 public Unpause();
 public End();
-private _TotalTime();
-private _CurrentTimeFloat();
-private _PHPVersion();
+private GetTotalTime();
+private GetCurrentTime();
+private GetPHPVersion();
 ```
 
 Simple Usage
