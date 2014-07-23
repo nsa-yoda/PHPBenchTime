@@ -1,10 +1,23 @@
 language: php
 
-php:      5.3
+php:
+    - 5.3
+    - 5.4
+    - 5.5
+    - hhvm
+
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq php5
+
+install:
+  - curl -sS https://getcomposer.org/installer | php
 
 before_script:
-    - composer self-update
+    - php --version
+    - php composer.phar composer --version
+    - php composer.phar install
     - travis_retry composer install --dev --prefer-dist
 
 script:
-    - bin/phpspec run -fpretty --verbose
+    - bin/phpspec --verbose --fpretty run
