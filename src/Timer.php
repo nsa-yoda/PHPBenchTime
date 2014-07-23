@@ -14,14 +14,14 @@ namespace PHPBenchTime;
 class Timer {
 
     /**
-     * Time that $this->Start() was called
+     * Time that $this->start() was called
      *
      * @var int
      */
     private $startTime = 0;
 
     /**
-     * Time that $this->End() was called
+     * Time that $this->end() was called
      *
      * @var int
      */
@@ -80,13 +80,13 @@ class Timer {
      * Class constructor
      */
     public function __construct() {
-        $this->Reset();
+        $this->reset();
     }
 
     /**
      * Resets the timers, laps and summary
      */
-    public function Reset() {
+    public function reset() {
         $this->startTime = 0;
         $this->endTime   = 0;
         $this->pauseTime = 0;
@@ -100,38 +100,38 @@ class Timer {
     /**
      * Starts the timer
      */
-    public function Start() {
+    public function start() {
         $this->setRunningPaused( true, false );
 
         # Set the start time
         $this->startTime = $this->getCurrentTime();
 
         # Create a lap with this start time
-        $this->Lap( "Start" );
+        $this->lap( "start" );
     }
 
     /**
      * Ends the timer
      */
-    public function End() {
+    public function end() {
         $this->setRunningPaused( false, true );
 
         # Set the end time
         $this->endTime = $this->getCurrentTime();
 
-        # End the last lap
+        # end the last lap
         $this->endLap();
 
-        return $this->Summary();
+        return $this->summary();
     }
 
     /**
      * Creates a new lap in lap array property
      */
-    public function Lap( $name = null ) {
+    public function lap( $name = null ) {
         $lapTime = $this->getCurrentTime();
 
-        # End the last lap
+        # end the last lap
         $this->endLap();
 
         # Create new lap
@@ -150,7 +150,7 @@ class Timer {
      *
      * @return array
      */
-    public function Summary() {
+    public function summary() {
         $this->totalTime = $this->endTime - $this->startTime;
 
         $summary = array(
@@ -168,7 +168,7 @@ class Timer {
     /**
      * Initiates a pause in the timer
      */
-    public function Pause() {
+    public function pause() {
         $this->setRunningPaused( false, true );
         $this->pauseTime = $this->getCurrentTime();
     }
@@ -176,7 +176,7 @@ class Timer {
     /**
      * Cancels the pause previously set
      */
-    public function Unpause() {
+    public function unPause() {
         $this->setRunningPaused( true, false );
         $this->totalPauseTime = $this->getCurrentTime() - $this->pauseTime;
         $this->pauseTime      = 0;

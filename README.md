@@ -1,6 +1,12 @@
 PHPBenchTime v2.0.0
 ===================
 
+[![Build Status](https://travis-ci.org/drgomesp/Greppy.svg?branch=master)](https://travis-ci.org/drgomesp/Greppy)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/drgomesp/Greppy/badges/quality-score.png?s=2ee65804cbc0c223711d96c14367dd37a202824d)](https://scrutinizer-ci.com/g/drgomesp/Greppy/)
+[![Latest Unstable Version](https://poser.pugx.org/relaxphp/greppy/v/unstable.png)](https://packagist.org/packages/relaxphp/greppy)
+[![License](https://poser.pugx.org/relaxphp/greppy/license.png)](https://packagist.org/packages/relaxphp/greppy)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4aec493b-b7f3-4e43-8412-361b84a32c6f/mini.png)](https://insight.sensiolabs.com/projects/4aec493b-b7f3-4e43-8412-361b84a32c6f/mini.png)
+
 A light benchmark timer class for PHP. PHPBenchTime v2.0.0 is quite simple to use and is loaded with more functionality
 than the previous version - including more detailed summary data, more readable source, a central lap system and
 (finally) pause and unpause functionality. This version is a complete rewrite of PHPBenchTime.
@@ -12,13 +18,13 @@ https://packagist.org/packages/jsanc623/phpbenchtime
 Methods
 =======
 ```
-public Start()
-public End()
-public Reset()
-public Lap()
-public Summary()
-public Pause()
-public Unpause()
+public start()
+public end()
+public reset()
+public lap()
+public summary()
+public pause()
+public unPause()
 private endLap()
 private setRunningPaused()
 private getCurrentTime()
@@ -54,7 +60,7 @@ $T = new Timer;
 That was easy! Now lets start a new timer:
 
 ```
-$T->Start();
+$T->start();
 ```
 
 Then lets just sleep for 3 seconds:
@@ -64,7 +70,7 @@ sleep(3);
 
 Now, lets end the timer, and put results in $time:
 ```
-$time = $Benchmark->End();
+$time = $Benchmark->end();
 ```
 
 When we end a timer, we receive an array back, containing the start time,
@@ -78,7 +84,7 @@ Array (
     [paused] => 0
     [laps] => Array (
         [0] => Array (
-            [name] => Start
+            [name] => start
             [start] => 1406146951.9998
             [end] => 1406146952.0018
             [total] => 0.0019998550415039
@@ -96,14 +102,14 @@ you to determine what part of your code is causing a bottleneck.
 Let's sleep for a couple of seconds between laps:
 ```
 sleep(1);
-$T->Lap();
+$T->lap();
 sleep(2);
-$T->Lap();
+$T->lap();
 ```
 
 Now, let's end the timer:
 ```
-$time = $Benchmark->End();
+$time = $Benchmark->end();
 ```
 
 Let's see the results:
@@ -116,7 +122,7 @@ Array (
     [paused] => 0.041000127792358
     [laps] => Array (
         [0] => Array (
-            [name] => Start
+            [name] => start
             [start] => 1406146951.9998
             [end] => 1406146952.0018
             [total] => 0.0019998550415039
