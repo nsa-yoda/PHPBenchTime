@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PHPBenchTime Benchmark Usage Tests</title>
+    <title>PHPBenchTime Usage Doc</title>
     <style type="text/css">
         * {
             margin: 0 auto;
@@ -48,69 +48,105 @@
 <body>
 <div id="wrapper">
     <div id="container">
-        <h1 class="heading">PHPBenchTime Benchmark Usage</h1>
+        <h1 class="heading">PHPBenchTime Usage Documentation</h1>
     </div>
     <section>
-        <h2>Require the file and use the classname</h2>
-                    <pre><code># Require PHPBenchTime
-                               require("../src/PHPBenchTime.php");
+        <h2>Require the file and use (or just autoload it)</h2>
+<pre><code># Require PHPBenchTime
+include("src/Timer.php");
 
-                               # Namespace
-                               use PHPBenchTime\Timer;</code></pre>
+# Namespace
+use PHPBenchTime\Timer;</code></pre>
     </section>
     <section>
         <h2>Basic Usage: Sleep for One Second</h2>
-                <pre><code>$Benchmark = new PHPBenchTime\Timer();
-                           $Benchmark->Start();
-                           sleep(1);
-                           $end = $Benchmark->End();
-
-                           /** RESULT:
-                           * Array (
-                           * [Start] => 1354132959.1876
-                           * [End] => 1354132960.1877
-                           * [Total] => 1.0001 )
-                           */</code></pre>
+<pre><code>$T = new Timer();
+sleep(1);
+$end = $T->End(); # Returns an array into $end
+</code></pre>
+    </section>
+    <section>
+        <h2>Typical Output</h2>
+<pre><code>Array (
+    [running] => false
+    [start] => 1406146951.9998
+    [end] => 1406146952.0638
+    [total] => 0.063999891281128
+    [paused] => 0.041000127792358
+    [laps] => Array (
+            [0] => Array (
+                    [name] => Start
+                    [start] => 1406146951.9998
+                    [end] => 1406146952.0018
+                    [total] => 0.0019998550415039
+                )
+            [1] => Array (
+                    [name] => Second lap
+                    [start] => 1406146952.0018
+                    [end] => 1406146952.0028
+                    [total] => 0.0010001659393311
+                )
+            [2] => Array (
+                    [name] => Third lap
+                    [start] => 1406146952.0028
+                    [end] => 1406146952.0128
+                    [total] => 0.0099999904632568
+                )
+            [3] => Array (
+                    [name] => Tiny lap between pauses
+                    [start] => 1406146952.0128
+                    [end] => 1406146952.0638
+                    [total] => 0.050999879837036
+                )
+            [4] => Array (
+                    [name] => Last lap
+                    [start] => 1406146952.0638
+                    [end] => 1406146952.0639
+                    [total] => 0.0000999999999999
+                )
+        )
+)
+</code></pre>
     </section>
     <section>
         <h2>Basic Usage: Laps</h2>
-                    <pre><code>$Benchmark = new PHPBenchTime\Timer();
-                               $Benchmark->Start();
-                               sleep(1);
-                               $Benchmark->Lap();
-                               sleep(1);
-                               $Benchmark->Lap();
-                               sleep(1);
-                               $Benchmark->Lap();
-                               $end = $Benchmark->End();
-
-                               /** RESULT:
-                               * Array (
-                               * [0] => 1354133093.9828
-                               * [1] => 1354133094.9829
-                               * [2] => 1354133095.983
-                               * [3] => 1354133096.983 )
-                               */</code></pre>
+<pre><code>$Benchmark = new Timer();
+$T->Start();
+sleep(1);
+$T->Lap();
+sleep(1);
+$T->Lap();
+sleep(1);
+$T->Lap();
+$end = $T->End(); # Returns an array into $end
+</code></pre>
     </section>
     <section>
         <h2>Advanced Usage: Named Laps</h2>
-                    <pre><code>$Benchmark = new PHPBenchTime\Timer();
-                               $Benchmark->Start("Start Timer");
-                               sleep(1);
-                               $Benchmark->Lap("Slept for 1 second");
-                               sleep(1);
-                               $Benchmark->Lap("Slept for 1 more second");
-                               sleep(1);
-                               $Benchmark->Lap("Slept for another second");
-                               $end = $Benchmark->End();
-
-                               /** RESULT:
-                               * Array (
-                               * [Start Timer] => 1354133216.622
-                               * [Slept for 1 second] => 1354133217.6221
-                               * [Slept for 1 more second] => 1354133218.6222
-                               * [Slept for another second] => 1354133219.6223 )
-                               */</code></pre>
+<pre><code>$T = new Timer();
+$T->Start("Start Timer");
+sleep(1);
+$T->Lap("Slept for 1 second");
+sleep(1);
+$T->Lap("Slept for 1 more second");
+sleep(1);
+$T->Lap("Slept for another second");
+$end = $T->End(); # Returns an array into $end
+</code></pre>
+    </section>
+    <section>
+        <h2>Advanced Usage: Pause and Unpause</h2>
+<pre><code>$T = new Timer();
+$T->Start("Start Timer");
+sleep(1);
+$T->Lap("Slept for 1 second");
+sleep(1);
+$T->Pause();
+sleep(3);
+$T->Unpause();
+$T->Lap("Slept for another second");
+$end = $T->End(); # Returns an array into $end
+</code></pre>
     </section>
 </div>
 </body>

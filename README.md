@@ -1,7 +1,9 @@
-PHPBenchTime v1.3.0
+PHPBenchTime v2.0.0
 ===================
 
-A light benchmark timer class for PHP
+A light benchmark timer class for PHP. PHPBenchTime v2.0.0 is quite simple to use and is loaded with more functionality
+than the previous version - including more detailed summary data, more readable source, a central lap system and
+(finally) pause and unpause functionality. This version is a complete rewrite of PHPBenchTime.
 
 On Packagist
 ============
@@ -10,32 +12,49 @@ https://packagist.org/packages/jsanc623/phpbenchtime
 Methods
 =======
 ```
-public Start();
-public Lap();
-public Pause();
-public Unpause();
-public End();
-private GetTotalTime();
-private GetCurrentTime();
-private GetPHPVersion();
+public Start()
+public End()
+public Reset()
+public Lap()
+public Summary()
+public Pause()
+public Unpause()
+private endLap()
+private setRunningPaused()
+private getCurrentTime()
 ```
 
-Simple Usage
-============
-PHPBenchTime is simple to use, let's require the file and use the namespace with 
-a nickname:
+Properties
+==========
+```
+private startTime
+private endTime
+private pauseTime
+private totalTime
+private laps
+private isRunning
+private isPaused
+private lapCount
+```
 
+
+Usage
+=====
+
+You should see the Usage.php file in source for the best how to documentation. However, here's an overview:
+
+Load and initiate the PHPBenchTime Timer:
 ```
 require('PHPBenchTime.php');
-use PHPBenchTime\Timer as Timer;
-$Benchmark = new Timer;
+use PHPBenchTime\Timer;
+$T = new Timer;
 ```
 
 
-That was easy! Now lets start a timer:
+That was easy! Now lets start a new timer:
 
 ```
-$Benchmark->Start();
+$T->Start();
 ```
 
 Then lets just sleep for 3 seconds:
@@ -51,11 +70,20 @@ $time = $Benchmark->End();
 When we end a timer, we receive an array back, containing the start time,
 end time and difference between start and end times:
 ```
-Array
-(
-    [Start] => 1353194312.2802
-    [End] => 1353194314.2804
-    [Total] => 2.0001
+Array (
+    [running] => false
+    [start] => 1406146951.9998
+    [end] => 1406146952.0638
+    [total] => 0.0019998550415039
+    [paused] => 0
+    [laps] => Array (
+        [0] => Array (
+            [name] => Start
+            [start] => 1406146951.9998
+            [end] => 1406146952.0018
+            [total] => 0.0019998550415039
+        )
+    )
 )
 ```
 
@@ -63,22 +91,14 @@ Advanced Usage : Laps
 =====================
 
 PHPBenchTime also allows you to set laps between code execution, which allows 
-you to determine what part of your code is causing a bottleneck. Let's start a timer:
+you to determine what part of your code is causing a bottleneck.
 
-```
-require('PHPBenchTime.php');
-use PHPBenchTime\Timer as Timer;
-$Benchmark = new Timer;
-
-$Benchmark->Start();
-```
-
-Then, let's sleep for a couple of seconds between laps:
+Let's sleep for a couple of seconds between laps:
 ```
 sleep(1);
-$Benchmark->Lap();
+$T->Lap();
 sleep(2);
-$Benchmark->Lap();
+$T->Lap();
 ```
 
 Now, let's end the timer:
@@ -88,60 +108,40 @@ $time = $Benchmark->End();
 
 Let's see the results:
 ```
-Array
-(
-	[Laps] =>
-	    [0] => 1353195346.6762
-	    [1] => 1353195347.6763
-	    [2] => 1353195349.6764
-	[Total] => 3.0002
+Array (
+    [running] => false
+    [start] => 1406146951.9998
+    [end] => 1406146952.0638
+    [total] => 0.063999891281128
+    [paused] => 0.041000127792358
+    [laps] => Array (
+        [0] => Array (
+            [name] => Start
+            [start] => 1406146951.9998
+            [end] => 1406146952.0018
+            [total] => 0.0019998550415039
+        )
+        [1] => Array (
+            [name] => 1
+            [start] => 1406146952.0018
+            [end] => 1406146952.0028
+            [total] => 0.0010001659393311
+        )
+        [2] => Array (
+            [name] => 2
+            [start] => 1406146952.0028
+            [end] => 1406146952.0128
+            [total] => 0.0099999904632568
+        )
+    )
 )
 ```
 
-Advanced Usage : Named Laps
-===========================
-PHPBenchTime can also perform named laps, laps that allow you to name each one
-to know more safely where each lap is located...so again, let's start a timer:
-```
-require('PHPBenchTime.php');
-use PHPBenchTime\Timer as Timer;
-$Benchmark = new Timer;
-
-$Benchmark->Start("Start");
-```
-
-Then, let's sleep for a couple of seconds between laps:
-```
-sleep(1);
-$Benchmark->Lap("First Lap");
-sleep(2);
-$Benchmark->Lap("Second Lap");
-```
-
-Now, let's end the timer:
-```
-$time = $Benchmark->End();
-```
-
-Let's see the result:
-```
-Array
-(
-	[Laps] => 
-   		[Start] => 1353195603.1876
-   		[First Lap] => 1353195604.1877
-   		[Second Lap] => 1353195606.1878
-   	[Total] => 3.0002
-)
-```
-
-TODO
-====
-PHPBenchTime still has to mature quite a bit...for example, there are methods 
-for Pause and Unpause, but they have not yet been implemented.
-
-PHPBenchTime could benefit from a bit of code cleanup and performance mods, 
-as well as DRY methodologies in certain areas.
+Advanced Usage
+==============
+PHPBenchTime allows you to do named laps, as well as to pause and unpause the timer (say you want to make a network
+call or a call out to the database, but don't want to include that time in your benchmark - pause and then unpause after
+you receive the network/database data).
 
 HISTORY
 =======
@@ -150,3 +150,4 @@ HISTORY
 * v1.1.0: Static Namespaces! 
 * v1.2.0: Non-Static Namespaces! 
 * v1.3.0: Laps! Laps! Laps! 
+* v2.0.0: Complete rewrite, adds pause, unpause, central lap system and more detailed summary
