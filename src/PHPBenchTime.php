@@ -3,7 +3,7 @@
  * PHPBenchTime
  * A light benchmark timer class for PHP
  *
- * @author   Juan L. Sanchez <juanleonardosanchez.com>
+ * @author   Juan L. Sanchez <juan.sanchez@juanleonardosanchez.com>
  * @license  MIT
  * @version  1.3.0
  * @internal 12.04.2012
@@ -13,11 +13,11 @@ namespace PHPBenchTime;
 
 class Timer {
 
-    private $_startTime;
-    private $_pauseTime;
-    private $_endTime;
-    private $_phpVersion;
-    private $_lapName;
+    private $starTime;
+    private $pauseTime;
+    private $endTime;
+    private $phpVersion;
+    private $lapName;
 
     /**
      * Construct
@@ -34,26 +34,26 @@ class Timer {
      * @return true Always returns true
      */
     public final function Start( $lapName = "" ) {
-        if ( empty( $this->_phpVersion ) )
+        if ( empty( $this->phpVersion ) )
             $this->GetPHPVersion();
 
         if ( isset( $lapName ) ) {
-            $this->_startTime = (array)$this->_startTime;
-            $this->_lapName   = $lapName;
+            $this->starTime = (array)$this->starTime;
+            $this->lapName   = $lapName;
         }
 
         # Set the current start value
-        if ( is_array( $this->_startTime ) ) { # Check if array (lap)
-            if ( empty( $this->_lapName ) )
-                $this->_startTime[] = $this->GetCurrentTime();
+        if ( is_array( $this->starTime ) ) { # Check if array (lap)
+            if ( empty( $this->lapName ) )
+                $this->starTime[] = $this->GetCurrentTime();
             else
-                $this->_startTime[$this->_lapName] = $this->GetCurrentTime();
+                $this->starTime[$this->lapName] = $this->GetCurrentTime();
         } else {
-            $this->_startTime = $this->GetCurrentTime();
+            $this->starTime = $this->GetCurrentTime();
         }
 
-        $this->_pauseTime = 0;
-        $this->_endTime   = 0;
+        $this->pauseTime = 0;
+        $this->endTime   = 0;
 
         return true;
     }
@@ -67,11 +67,11 @@ class Timer {
      */
     public final function Lap( $lapName = "" ) {
         if ( isset( $lapName ) )
-            $this->_lapName = $lapName;
+            $this->lapName = $lapName;
 
-        # Cast _startTime as array if its not an array, else
-        if ( !is_array( $this->_startTime ) )
-            $this->_startTime = array( $this->_startTime );
+        # Cast starTime as array if its not an array, else
+        if ( !is_array( $this->starTime ) )
+            $this->starTime = array( $this->starTime );
 
         $this->Start();
     }
@@ -105,15 +105,15 @@ class Timer {
      * @return true Always returns true
      */
     public final function End() {
-        if ( is_array( $this->_startTime ) )
+        if ( is_array( $this->starTime ) )
             return array(
-                'Laps'  => $this->_startTime,
-                'Total' => round( ( $this->GetCurrentTime() - $this->_startTime[0] ), 4 )
+                'Laps'  => $this->starTime,
+                'Total' => round( ( $this->GetCurrentTime() - $this->starTime[0] ), 4 )
             );
 
         else {
             return array(
-                'Start' => $this->_startTime,
+                'Start' => $this->starTime,
                 'End'   => $this->GetCurrentTime(),
                 'Total' => $this->GetTotalTime()
             );
@@ -128,7 +128,7 @@ class Timer {
      * @param  int   Number of decimals to round to
      */
     private final function GetTotalTime( $decimals = 4 ) {
-        return round( ( $this->GetCurrentTime() - $this->_startTime ), $decimals );
+        return round( ( $this->GetCurrentTime() - $this->starTime ), $decimals );
     }
 
     /**
@@ -137,7 +137,7 @@ class Timer {
      * @return float Returns current time in float seconds
      */
     private final function GetCurrentTime() {
-        if ( $this->_phpVersion < 5.0 ) {
+        if ( $this->phpVersion < 5.0 ) {
             list( $usec, $sec ) = explode( " ", microtime() );
 
             return ( (float)$usec + (float)$sec );
@@ -149,9 +149,9 @@ class Timer {
     /**
      * Get the current PHP version
      *
-     * @internal Sets $this->_phpVersion
+     * @internal Sets $this->phpVersion
      */
     private final function GetPHPVersion() {
-        $this->_phpVersion = (string)substr( PHP_VERSION, 0, 3 );
+        $this->phpVersion = (string)substr( PHP_VERSION, 0, 3 );
     }
 }

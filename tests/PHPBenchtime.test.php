@@ -8,11 +8,11 @@ class Timer_Test extends PHPUnit_Framework_TestCase{
     }
     
 	public function testClassAttributes(){
-		$this->assertClassHasAttribute("_startTime", "PHPBenchTime\Timer");
-		$this->assertClassHasAttribute("_pauseTime", "PHPBenchTime\Timer");
-		$this->assertClassHasAttribute("_endTime", "PHPBenchTime\Timer");
-		$this->assertClassHasAttribute("_phpVersion", "PHPBenchTime\Timer");
-		$this->assertClassHasAttribute("_lapName", "PHPBenchTime\Timer");
+		$this->assertClassHasAttribute("starTime", "PHPBenchTime\Timer");
+		$this->assertClassHasAttribute("pauseTime", "PHPBenchTime\Timer");
+		$this->assertClassHasAttribute("endTime", "PHPBenchTime\Timer");
+		$this->assertClassHasAttribute("phpVersion", "PHPBenchTime\Timer");
+		$this->assertClassHasAttribute("lapName", "PHPBenchTime\Timer");
 	}
 
 	public function testStartFunctionNoName(){
