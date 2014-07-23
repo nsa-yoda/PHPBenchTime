@@ -1,7 +1,7 @@
 PHPBenchTime v2.0.0
 ===================
 
-[![Latest Stable Version](https://poser.pugx.org/jsanc623/phpbenchtime/v/stable.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
+[![Latest Stable Version](https://poser.pugx.org/jsanc623/phpbenchtime/version.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
 [![Total Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/downloads.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
 [![Monthly Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/d/monthly.png)](https://packagist.org/packages/jsanc623/phpbenchtime)
 [![License](https://poser.pugx.org/jsanc623/phpbenchtime/license.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
