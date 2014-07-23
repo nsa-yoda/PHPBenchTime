@@ -33,7 +33,7 @@ class Timer {
      * @param string $lapName
      * @return true Always returns true
      */
-    public final function Start( $lapName = "" ) {
+    public function Start( $lapName = "" ) {
         if ( empty( $this->phpVersion ) )
             $this->GetPHPVersion();
 
@@ -65,7 +65,7 @@ class Timer {
      * @param string $lapName
      * @return true Always returns true
      */
-    public final function Lap( $lapName = "" ) {
+    public function Lap( $lapName = "" ) {
         if ( isset( $lapName ) )
             $this->lapName = $lapName;
 
@@ -78,33 +78,11 @@ class Timer {
 
 
     /**
-     * Pause timer function
-     *
-     * @return true Always returns true
-     * @todo Implement Pause()
-     */
-    public final function Pause() {
-
-    }
-
-
-    /**
-     * Unpause timer function
-     *
-     * @return true Always returns true
-     * @todo Implement Unpause()
-     */
-    public final function Unpause() {
-
-    }
-
-
-    /**
      * End timer function
      *
      * @return true Always returns true
      */
-    public final function End() {
+    public function End() {
         if ( is_array( $this->starTime ) )
             return array(
                 'Laps'  => $this->starTime,
@@ -119,6 +97,30 @@ class Timer {
             );
         }
     }
+    
+    
+
+
+    /**
+     * Pause timer function
+     *
+     * @return true Always returns true
+     * @todo Implement Pause()
+     */
+    public function Pause() {
+
+    }
+
+
+    /**
+     * Unpause timer function
+     *
+     * @return true Always returns true
+     * @todo Implement Unpause()
+     */
+    public function Unpause() {
+
+    }
 
 
     /**
@@ -127,7 +129,7 @@ class Timer {
      * @return float current timer value
      * @param  int   Number of decimals to round to
      */
-    private final function GetTotalTime( $decimals = 4 ) {
+    private function GetTotalTime( $decimals = 4 ) {
         return round( ( $this->GetCurrentTime() - $this->starTime ), $decimals );
     }
 
@@ -136,7 +138,7 @@ class Timer {
      *
      * @return float Returns current time in float seconds
      */
-    private final function GetCurrentTime() {
+    private function GetCurrentTime() {
         if ( $this->phpVersion < 5.0 ) {
             list( $usec, $sec ) = explode( " ", microtime() );
 
@@ -151,7 +153,7 @@ class Timer {
      *
      * @internal Sets $this->phpVersion
      */
-    private final function GetPHPVersion() {
+    private function GetPHPVersion() {
         $this->phpVersion = (string)substr( PHP_VERSION, 0, 3 );
     }
 }
