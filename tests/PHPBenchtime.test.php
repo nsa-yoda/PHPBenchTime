@@ -8,7 +8,7 @@ class Timer_Test extends PHPUnit_Framework_TestCase {
     }
 
     public function testClassAttributes() {
-        $this->assertClassHasAttribute( 'starTime', 'PHPBenchTime\Timer' );
+        $this->assertClassHasAttribute( 'startTime', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'pauseTime', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'endTime', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'phpVersion', 'PHPBenchTime\Timer' );

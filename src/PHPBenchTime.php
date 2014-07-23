@@ -13,11 +13,12 @@ namespace PHPBenchTime;
 
 class Timer {
 
-    private $starTime;
+    private $startTime;
     private $pauseTime;
     private $endTime;
     private $phpVersion;
     private $lapName;
+    private $isRunning;
 
     /**
      * Construct
@@ -34,22 +35,24 @@ class Timer {
      * @return true Always returns true
      */
     public function Start( $lapName = "" ) {
+        $this->isRunning = true;
+
         if ( empty( $this->phpVersion ) )
             $this->GetPHPVersion();
 
         if ( isset( $lapName ) ) {
-            $this->starTime = (array)$this->starTime;
+            $this->startTime = (array)$this->startTime;
             $this->lapName   = $lapName;
         }
 
         # Set the current start value
-        if ( is_array( $this->starTime ) ) { # Check if array (lap)
+        if ( is_array( $this->startTime ) ) { # Check if array (lap)
             if ( empty( $this->lapName ) )
-                $this->starTime[] = $this->GetCurrentTime();
+                $this->startTime[] = $this->GetCurrentTime();
             else
-                $this->starTime[$this->lapName] = $this->GetCurrentTime();
+                $this->startTime[$this->lapName] = $this->GetCurrentTime();
         } else {
-            $this->starTime = $this->GetCurrentTime();
+            $this->startTime = $this->GetCurrentTime();
         }
 
         $this->pauseTime = 0;
@@ -69,9 +72,9 @@ class Timer {
         if ( isset( $lapName ) )
             $this->lapName = $lapName;
 
-        # Cast starTime as array if its not an array, else
-        if ( !is_array( $this->starTime ) )
-            $this->starTime = array( $this->starTime );
+        # Cast startTime as array if its not an array, else
+        if ( !is_array( $this->startTime ) )
+            $this->startTime = array( $this->startTime );
 
         $this->Start();
     }
@@ -83,22 +86,40 @@ class Timer {
      * @return true Always returns true
      */
     public function End() {
-        if ( is_array( $this->starTime ) )
+        $this->isRunning = false;
+
+        if ( is_array( $this->startTime ) )
             return array(
-                'Laps'  => $this->starTime,
-                'Total' => round( ( $this->GetCurrentTime() - $this->starTime[0] ), 4 )
+                'Laps'  => $this->startTime,
+                'Total' => round( ( $this->GetCurrentTime() - $this->startTime[0] ), 4 )
             );
 
         else {
             return array(
-                'Start' => $this->starTime,
+                'Start' => $this->startTime,
                 'End'   => $this->GetCurrentTime(),
                 'Total' => $this->GetTotalTime()
             );
         }
     }
-    
-    
+
+
+    /**
+     * Returns an array containing a running summary of current timing
+     *
+     * @return array
+     */
+    public function Summary() {
+        $summary = array(
+            'running' => ( $this->isRunning === true ? "true" : "false" ),
+            'start'   => ( isset( $this->startTime ) && !empty( $this->endTime ) ? $this->startTime : -1 ),
+            'end'     => ( isset( $this->endTime ) && !empty( $this->endTime ) ? $this->endTime : -1 ),
+            'total'   => $this->GetTotalTime(),
+            'laps'    => ( is_array( $this->startTime ) ? $this->startTime : NULL )
+        );
+
+        return $summary;
+    }
 
 
     /**
@@ -108,7 +129,7 @@ class Timer {
      * @todo Implement Pause()
      */
     public function Pause() {
-
+        $this->isRunning = false;
     }
 
 
@@ -119,7 +140,7 @@ class Timer {
      * @todo Implement Unpause()
      */
     public function Unpause() {
-
+        $this->isRunning = true;
     }
 
 
@@ -130,7 +151,7 @@ class Timer {
      * @param  int   Number of decimals to round to
      */
     private function GetTotalTime( $decimals = 4 ) {
-        return round( ( $this->GetCurrentTime() - $this->starTime ), $decimals );
+        return round( ( $this->GetCurrentTime() - $this->startTime ), $decimals );
     }
 
     /**
