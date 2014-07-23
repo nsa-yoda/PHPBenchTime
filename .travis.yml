@@ -18,6 +18,3 @@ before_script:
     - php composer.phar composer --version
     - php composer.phar install
     - travis_retry composer install --dev --prefer-dist
-
-script:
-    - bin/phpspec --verbose --fpretty run
