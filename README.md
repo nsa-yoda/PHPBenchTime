@@ -71,7 +71,7 @@ sleep(3);
 
 Now, lets end the timer, and put results in $time:
 ```
-$time = $Benchmark->end();
+$time = $T->end();
 ```
 
 When we end a timer, we receive an array back, containing the start time,
@@ -110,7 +110,7 @@ $T->lap();
 
 Now, let's end the timer:
 ```
-$time = $Benchmark->end();
+$time = $T->end();
 ```
 
 Let's see the results:
