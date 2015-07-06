@@ -158,3 +158,4 @@ HISTORY
 * v1.2.0: Non-Static Namespaces! 
 * v1.3.0: Laps! Laps! Laps! 
 * v2.0.0: Complete rewrite, adds pause, unpause, central lap system and more detailed summary
+* v2.1.0: Performance enhancements, unit tests, etc
