@@ -105,8 +105,6 @@ class Timer {
 
         # end the last lap
         $this->endLap();
-
-        return $this->summary();
     }
 
     /**
