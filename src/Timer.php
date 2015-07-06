@@ -42,13 +42,6 @@ class Timer {
     private $pauseTime = 0;
 
     /**
-     * Difference between $this->startTime and $this->endTime
-     *
-     * @var int
-     */
-    private $totalTime = 0;
-
-    /**
      * Contains all laps
      *
      * @var array
@@ -83,7 +76,6 @@ class Timer {
         $this->startTime = 0;
         $this->endTime   = 0;
         $this->pauseTime = 0;
-        $this->totalTime = 0;
         $this->laps      = array();
         $this->isRunning = false;
         $this->lapCount  = 0;
@@ -143,18 +135,14 @@ class Timer {
      * @return array
      */
     public function summary() {
-        $this->totalTime = $this->endTime - $this->startTime;
-
-        $summary = array(
+        return array(
             'running' => ( $this->isRunning === true ? "true" : "false" ),
             'start'   => $this->startTime,
             'end'     => $this->endTime,
-            'total'   => $this->totalTime,
+            'total'   => $this->envTime - $this->startTime,
             'paused'  => $this->totalPauseTime,
             'laps'    => $this->laps
         );
-
-        return $summary;
     }
 
     /**
