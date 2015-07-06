@@ -1,26 +1,26 @@
 <?php
+namespace TimerTestNamespace;
 
-class Timer_Test extends PHPUnit_Framework_TestCase {
+include "src/Timer.php";
+
+class Timer_Test extends \PHPUnit_Framework_TestCase {
     private $timer;
 
     public function setUp() {
-        $this->timer = new PHPBenchTime\Timer;
+        $this->timer = new \PHPBenchTime\Timer;
     }
 
     public function testClassAttributes() {
         $this->assertClassHasAttribute( 'startTime', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'endTime', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'pauseTime', 'PHPBenchTime\Timer' );
-        $this->assertClassHasAttribute( 'totalTime', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'laps', 'PHPBenchTime\Timer' );
-        $this->assertClassHasAttribute( 'isRunning', 'PHPBenchTime\Timer' );
-        $this->assertClassHasAttribute( 'isPaused', 'PHPBenchTime\Timer' );
         $this->assertClassHasAttribute( 'lapCount', 'PHPBenchTime\Timer' );
     }
 
     public function testStart() {
         $this->timer->start('test_start');
-        $this->assertEquals($this->timer->RUNNING, $this->timer->state);
+        $this->assertEquals(\PHPBenchTime\Timer::RUNNING, $this->timer->state);
         $this->assertGreaterThanOrEqual(microtime(true) - 3, $this->timer->startTime);
         $this->assertLessThanOrEqual(microtime(true) + 3, $this->timer->startTime);
     }
@@ -44,12 +44,12 @@ class Timer_Test extends PHPUnit_Framework_TestCase {
 
     public function testPause() {
         $this->timer->pause();
-        $this->assertEquals($this->timer->PAUSED, $this->timer->state);
+        $this->assertEquals(\PHPBenchTime\Timer::PAUSED, $this->timer->state);
     }
 
     public function testUnpause() {
         $this->timer->unPause();
-        $this->assertEquals($this->timer->RUNNING, $this->timer->state);
+        $this->assertEquals(\PHPBenchTime\Timer::RUNNING, $this->timer->state);
         $this->assertGreaterThan(0, $this->timer->totalPauseTime);
         $this->assertEquals(0, $this->timer->pauseTime);
     }
@@ -66,6 +66,6 @@ class Timer_Test extends PHPUnit_Framework_TestCase {
 
     public function testEnd() {
         $this->timer->end();
-        $this->assertEquals($this->timer->STOPPED, $this->timer->state);
+        $this->assertEquals(\PHPBenchTime\Timer::STOPPED, $this->timer->state);
     }
 }

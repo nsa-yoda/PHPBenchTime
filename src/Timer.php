@@ -18,49 +18,49 @@ class Timer {
     const RUNNING = 1;
     const PAUSED = 0;
     const STOPPED = -1;
-    protected $state;
+    public $state;
 
     /**
      * Time that $this->start() was called
      *
      * @var int
      */
-    private $startTime = 0;
+    public $startTime = 0;
 
     /**
      * Time that $this->end() was called
      *
      * @var int
      */
-    private $endTime = 0;
+    public $endTime = 0;
 
     /**
      * Total time spent in pause
      *
      * @var int
      */
-    private $totalPauseTime = 0;
+    public $totalPauseTime = 0;
 
     /**
      * Time spent in pause
      *
      * @var int
      */
-    private $pauseTime = 0;
+    public $pauseTime = 0;
 
     /**
      * Contains all laps
      *
      * @var array
      */
-    private $laps = array();
+    public $laps = array();
 
     /**
      * Keeps track of what lap we are currently on
      *
      * @var int
      */
-    private $lapCount = 0;
+    public $lapCount = 0;
 
     /**
      * Class constructor
@@ -134,7 +134,7 @@ class Timer {
             'running' => $this->state,
             'start'   => $this->startTime,
             'end'     => $this->endTime,
-            'total'   => $this->envTime - $this->startTime,
+            'total'   => $this->endTime - $this->startTime,
             'paused'  => $this->totalPauseTime,
             'laps'    => $this->laps
         );
@@ -160,7 +160,7 @@ class Timer {
     /**
      * Assign end and total times to the previous lap
      */
-    private function endLap() {
+    public function endLap() {
         $lapCount = count( $this->laps ) - 1;
         if ( count( $this->laps ) > 0 ) {
             $this->laps[$lapCount]['end']   = $this->getCurrentTime();
@@ -173,7 +173,7 @@ class Timer {
      *
      * @return float
      */
-    private function getCurrentTime() {
+    public function getCurrentTime() {
         return microtime( true );
     }
 }
