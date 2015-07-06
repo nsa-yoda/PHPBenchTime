@@ -113,15 +113,13 @@ class Timer {
      * Creates a new lap in lap array property
      */
     public function lap( $name = null ) {
-        $lapTime = $this->getCurrentTime();
-
         # end the last lap
         $this->endLap();
 
         # Create new lap
         $this->laps[] = array(
             "name"  => ( $name ? $name : $this->lapCount ),
-            "start" => $lapTime,
+            "start" => $this->getCurrentTime(),
             "end"   => -1,
             "total" => -1,
         );
