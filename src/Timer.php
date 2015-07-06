@@ -204,3 +204,5 @@ class Timer {
         return microtime( true );
     }
 }
+
+
