@@ -24,4 +24,4 @@ before_script:
     - travis_retry composer install --dev --prefer-dist
 
 script:
-    - phpunit tests
+    - phpunit test
