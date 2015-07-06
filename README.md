@@ -1,4 +1,4 @@
-PHPBenchTime v2.0.0
+PHPBenchTime v2.1.0
 ===================
 
 [![Latest Stable Version](https://poser.pugx.org/jsanc623/phpbenchtime/version.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
