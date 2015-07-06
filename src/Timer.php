@@ -161,7 +161,7 @@ class Timer {
      */
     public function unPause() {
         $this->state = self::RUNNING;
-        $this->totalPauseTime = $this->getCurrentTime() - $this->pauseTime;
+        $this->totalPauseTime += $this->getCurrentTime() - $this->pauseTime;
         $this->pauseTime      = 0;
     }
 
