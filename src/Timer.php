@@ -63,13 +63,6 @@ class Timer {
     private $isRunning = false;
 
     /**
-     * Determine if we are paused
-     *
-     * @var bool
-     */
-    private $isPaused = false;
-
-    /**
      * Keeps track of what lap we are currently on
      *
      * @var int
@@ -93,7 +86,6 @@ class Timer {
         $this->totalTime = 0;
         $this->laps      = array();
         $this->isRunning = false;
-        $this->isPaused  = false;
         $this->lapCount  = 0;
     }
 
@@ -194,14 +186,13 @@ class Timer {
     }
 
     /**
-     * Handles isRunning and isPaused
+     * Handles isRunning
      *
      * @param $running
      * @param $paused
      */
     private function setRunningPaused( $running, $paused ) {
         $this->isRunning = is_bool( $running ) ? $running : false;
-        $this->isPaused  = is_bool( $paused ) ? $paused : false;
     }
 
     /**
