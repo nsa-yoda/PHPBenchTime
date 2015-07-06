@@ -56,13 +56,6 @@ class Timer {
     private $laps = array();
 
     /**
-     * Is the timer currently actively running?
-     *
-     * @var bool
-     */
-    private $isRunning = false;
-
-    /**
      * Keeps track of what lap we are currently on
      *
      * @var int
@@ -84,7 +77,6 @@ class Timer {
         $this->endTime   = 0;
         $this->pauseTime = 0;
         $this->laps      = array();
-        $this->isRunning = false;
         $this->lapCount  = 0;
     }
 
@@ -139,7 +131,7 @@ class Timer {
      */
     public function summary() {
         return array(
-            'running' => ( $this->isRunning === true ? "true" : "false" ),
+            'running' => $this->state,
             'start'   => $this->startTime,
             'end'     => $this->endTime,
             'total'   => $this->envTime - $this->startTime,
