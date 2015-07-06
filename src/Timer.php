@@ -12,6 +12,13 @@
 namespace PHPBenchTime;
 
 class Timer {
+    /**
+     * Handle the running state of the timer
+     */
+    const RUNNING = 1;
+    const PAUSED = 0;
+    const STOPPED = -1;
+    protected $state;
 
     /**
      * Time that $this->start() was called
@@ -85,7 +92,7 @@ class Timer {
      * Starts the timer
      */
     public function start($name = "start") {
-        $this->setRunningPaused( true, false );
+        $this->state = self::RUNNING;
 
         # Set the start time
         $this->startTime = $this->getCurrentTime();
@@ -98,7 +105,7 @@ class Timer {
      * Ends the timer
      */
     public function end() {
-        $this->setRunningPaused( false, true );
+        $this->state = self::STOPPED;
 
         # Set the end time
         $this->endTime = $this->getCurrentTime();
@@ -145,7 +152,7 @@ class Timer {
      * Initiates a pause in the timer
      */
     public function pause() {
-        $this->setRunningPaused( false, true );
+        $this->state = self::PAUSED;
         $this->pauseTime = $this->getCurrentTime();
     }
 
@@ -153,7 +160,7 @@ class Timer {
      * Cancels the pause previously set
      */
     public function unPause() {
-        $this->setRunningPaused( true, false );
+        $this->state = self::RUNNING;
         $this->totalPauseTime = $this->getCurrentTime() - $this->pauseTime;
         $this->pauseTime      = 0;
     }
@@ -167,16 +174,6 @@ class Timer {
             $this->laps[$lapCount]['end']   = $this->getCurrentTime();
             $this->laps[$lapCount]['total'] = $this->laps[$lapCount]['end'] - $this->laps[$lapCount]['start'];
         }
-    }
-
-    /**
-     * Handles isRunning
-     *
-     * @param $running
-     * @param $paused
-     */
-    private function setRunningPaused( $running, $paused ) {
-        $this->isRunning = is_bool( $running ) ? $running : false;
     }
 
     /**
