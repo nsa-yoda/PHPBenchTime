@@ -27,7 +27,6 @@ public summary()
 public pause()
 public unPause()
 private endLap()
-private setRunningPaused()
 private getCurrentTime()
 ```
 
@@ -37,10 +36,7 @@ Properties
 private startTime
 private endTime
 private pauseTime
-private totalTime
 private laps
-private isRunning
-private isPaused
 private lapCount
 ```
 
