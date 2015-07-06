@@ -84,14 +84,14 @@ class Timer {
     /**
      * Starts the timer
      */
-    public function start() {
+    public function start($name = "start") {
         $this->setRunningPaused( true, false );
 
         # Set the start time
         $this->startTime = $this->getCurrentTime();
 
         # Create a lap with this start time
-        $this->lap( "start" );
+        $this->lap( $name );
     }
 
     /**
