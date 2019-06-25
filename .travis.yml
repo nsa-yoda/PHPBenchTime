@@ -1,13 +1,16 @@
 language: php
 
 php:
-#    - 5.3
-#    - 5.4
-#    - 5.5
-    - 5.6
-    - 7.0
-#    - hhvm
-#    - nightly
+  - php: 5.3
+    dist: precise
+  - php: 5.4
+  - php: 5.5
+  - php: 5.6
+  - php: 7.0
+  - php: 7.1
+  - php: 7.2
+  - php: hhvm
+    env: HHVM=true
 
 # set up allowed failures in the matrix
 matrix:
@@ -15,13 +18,21 @@ matrix:
     - php: 5.3
     - php: 5.4
     - php: hhvm
+  fast_finish: true
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
 
 before_install:
    - sudo apt-get update -qq
-   - sudo apt-get install -qq php5
+#   - sudo apt-get install -qq php5.6
 
 install:
     - curl -sS https://getcomposer.org/installer | php
+    - composer self-update
+    - composer install --prefer-source --no-interaction --dev
+    - if [[ $HHVM == true ]]; then composer require "phpunit/phpunit:5.7"; fi
 
 before_script:
     - php --version
@@ -30,7 +41,8 @@ before_script:
     - travis_retry composer install --dev --prefer-dist
 
 script:
-    - phpunit test
+    - if [[ $HHVM == true ]]; then ./vendor/bin/phpunit .; fi
+    - if [[ $HHVM != true ]]; then phpunit .; fi
 
 after_failure:
   - cat MSBuild_*.failure.txt
