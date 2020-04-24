@@ -5,7 +5,7 @@
  *
  * @author   Juan L. Sanchez <juan.sanchez@juanleonardosanchez.com>
  * @license  MIT
- * @version  2.0.0
+ * @version  2.1.0
  * @internal 07.23.2014
  */
 
@@ -18,49 +18,48 @@ class Timer {
     const RUNNING = 1;
     const PAUSED = 0;
     const STOPPED = -1;
-    public $state;
+
+    /**
+     * Maintains the state of the timer (RUNNING, PAUSED, STOPPED)
+     * @var int
+     */
+    public int $state = self::STOPPED;
 
     /**
      * Time that $this->start() was called
-     *
      * @var int
      */
-    public $startTime = 0;
+    public int $startTime = 0;
 
     /**
      * Time that $this->end() was called
-     *
      * @var int
      */
-    public $endTime = 0;
+    public int $endTime = 0;
 
     /**
      * Total time spent in pause
-     *
      * @var int
      */
-    public $totalPauseTime = 0;
+    public int $totalPauseTime = 0;
 
     /**
      * Time spent in pause
-     *
      * @var int
      */
-    public $pauseTime = 0;
+    public int $pauseTime = 0;
 
     /**
-     * Contains all laps
-     *
+     * All laps
      * @var array
      */
-    public $laps = array();
+    public array $laps = array();
 
     /**
-     * Keeps track of what lap we are currently on
-     *
+     * Total lap count, inclusive of the current lap
      * @var int
      */
-    public $lapCount = 0;
+    public int $lapCount = 0;
 
     /**
      * Class constructor
@@ -76,14 +75,15 @@ class Timer {
         $this->startTime = 0;
         $this->endTime   = 0;
         $this->pauseTime = 0;
-        $this->laps      = array();
+        $this->laps      = [];
         $this->lapCount  = 0;
     }
 
     /**
      * Starts the timer
+     * @param string $name
      */
-    public function start($name = "start") {
+    public function start( $name = "start" ) {
         $this->state = self::RUNNING;
 
         # Set the start time
@@ -108,10 +108,10 @@ class Timer {
 
     /**
      * Creates a new lap in lap array property
+     * @param null $name
      */
     public function lap( $name = null ) {
-        # end the last lap
-        $this->endLap();
+        $this->endLap(); # end the last lap
 
         # Create new lap
         $this->laps[] = array(
@@ -125,8 +125,18 @@ class Timer {
     }
 
     /**
+     * Assign end and total times to the previous lap
+     */
+    public function endLap() {
+        $lapCount = count( $this->laps ) - 1;
+        if ( count( $this->laps ) > 0 ) {
+            $this->laps[$lapCount]['end']   = $this->getCurrentTime();
+            $this->laps[$lapCount]['total'] = $this->laps[$lapCount]['end'] - $this->laps[$lapCount]['start'];
+        }
+    }
+
+    /**
      * Returns a summary of all timer activity so far
-     *
      * @return array
      */
     public function summary() {
@@ -151,26 +161,14 @@ class Timer {
     /**
      * Cancels the pause previously set
      */
-    public function unPause() {
+    public function unpause() {
         $this->state = self::RUNNING;
         $this->totalPauseTime += $this->getCurrentTime() - $this->pauseTime;
         $this->pauseTime      = 0;
     }
 
     /**
-     * Assign end and total times to the previous lap
-     */
-    public function endLap() {
-        $lapCount = count( $this->laps ) - 1;
-        if ( count( $this->laps ) > 0 ) {
-            $this->laps[$lapCount]['end']   = $this->getCurrentTime();
-            $this->laps[$lapCount]['total'] = $this->laps[$lapCount]['end'] - $this->laps[$lapCount]['start'];
-        }
-    }
-
-    /**
      * Returns the current time
-     *
      * @return float
      */
     public function getCurrentTime() {

@@ -1,12 +1,14 @@
 <?php
 namespace TimerTestNamespace;
 
-include "src/Timer.php";
+use PHPUnit\Framework\TestCase;
 
-class Timer_Test extends \PHPUnit_Framework_TestCase {
-    private $timer;
+require_once("../src/Timer.php");
 
-    public function setUp() {
+class Timer extends TestCase {
+    private \PHPBenchTime\Timer $timer;
+
+    public function setUp(): void {
         $this->timer = new \PHPBenchTime\Timer;
     }
 
@@ -26,20 +28,20 @@ class Timer_Test extends \PHPUnit_Framework_TestCase {
     }
 
     public function testLap() {
-	$this->timer->lap();
+	    $this->timer->lap();
         $this->assertGreaterThan(0, $this->timer->lapCount);
         $this->assertGreaterThan(0, count($this->timer->laps));
     }
 
     public function testSummary() {
-	$summary = $this->timer->summary();
+	    $summary = $this->timer->summary();
         $this->assertArrayHasKey('running', $summary);
         $this->assertArrayHasKey('start', $summary);
         $this->assertArrayHasKey('end', $summary);
         $this->assertArrayHasKey('total', $summary);
         $this->assertArrayHasKey('paused', $summary);
         $this->assertArrayHasKey('laps', $summary);
-        $this->assertGreaterThan(0, count($summary['total']));
+        $this->assertEquals(0, $summary['total']);
     }
 
     public function testPause() {
@@ -48,7 +50,7 @@ class Timer_Test extends \PHPUnit_Framework_TestCase {
     }
 
     public function testUnpause() {
-        $this->timer->unPause();
+        $this->timer->unpause();
         $this->assertEquals(\PHPBenchTime\Timer::RUNNING, $this->timer->state);
         $this->assertGreaterThan(0, $this->timer->totalPauseTime);
         $this->assertEquals(0, $this->timer->pauseTime);
