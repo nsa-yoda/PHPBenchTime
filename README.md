@@ -6,7 +6,6 @@ PHPBenchTime v2.1.0
 [![Monthly Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/d/monthly.png)](https://packagist.org/packages/jsanc623/phpbenchtime)
 [![License](https://poser.pugx.org/jsanc623/phpbenchtime/license.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
 [![Build Status](https://travis-ci.org/jsanc623/PHPBenchTime.svg)](https://travis-ci.org/jsanc623/PHPBenchTime)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/76e521f6-4935-4b06-b545-aae76d149421/small.png)](https://insight.sensiolabs.com/projects/76e521f6-4935-4b06-b545-aae76d149421)
 
 A light benchmark timer class for PHP. PHPBenchTime is quite simple to use and is loaded with functionality - including detailed summary data, easily readable source, a robust lap system and pause/unpause functionality.
 
