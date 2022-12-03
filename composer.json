@@ -1,5 +1,5 @@
 {
-    "name": "jsanc623/phpbenchtime",
+    "name": "nsa-yoda/phpbenchtime",
     "description": "A light benchmark timer class for PHP.",
     "keywords":[
         "benchmark",
