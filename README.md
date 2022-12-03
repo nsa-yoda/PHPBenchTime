@@ -1,15 +1,15 @@
 PHPBenchTime v2.1.0
 ===================
 
-[![Latest Stable Version](https://poser.pugx.org/jsanc623/phpbenchtime/version.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![Total Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/downloads.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![Monthly Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/d/monthly.png)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![License](https://poser.pugx.org/jsanc623/phpbenchtime/license.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![Build Status](https://travis-ci.org/jsanc623/PHPBenchTime.svg)](https://travis-ci.org/jsanc623/PHPBenchTime)
+[![Latest Stable Version](https://poser.pugx.org/nsa-yoda/phpbenchtime/version.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
+[![Total Downloads](https://poser.pugx.org/nsa-yoda/phpbenchtime/downloads.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
+[![Monthly Downloads](https://poser.pugx.org/nsa-yoda/phpbenchtime/d/monthly.png)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
+[![License](https://poser.pugx.org/nsa-yoda/phpbenchtime/license.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
+[![Build Status](https://travis-ci.org/nsa-yoda/PHPBenchTime.svg)](https://travis-ci.org/nsa-yoda/PHPBenchTime)
 
 A light benchmark timer class for PHP. PHPBenchTime is quite simple to use and is loaded with functionality - including detailed summary data, easily readable source, a robust lap system and pause/unpause functionality.
 
-Also, please check out my Python version of this package: [PyBenchTime Python Package](https://github.com/jsanc623/PyBenchTime)
+Also, please check out my Python version of this package: [PyBenchTime Python Package](https://github.com/nsa-yoda/PyBenchTime)
 
 On Packagist
 ============
