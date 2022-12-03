@@ -13,7 +13,7 @@ Also, please check out my Python version of this package: [PyBenchTime Python Pa
 
 On Packagist
 ============
-https://packagist.org/packages/jsanc623/phpbenchtime
+https://packagist.org/packages/nsa-yoda/phpbenchtime
 
 Methods
 =======
