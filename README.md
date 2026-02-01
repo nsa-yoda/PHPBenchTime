@@ -188,7 +188,7 @@ Calling end() while paused will automatically finalize the pause.
 
 A richer usage guide (with examples and explanations) is available in: `docs/index.html`
 
-This file can be found on th rpojrects GitHub Pages
+This file can be found on th rpojrects GitHub Pages: https://nsa-yoda.github.io/PHPBenchTime/
 
 ## History
 
