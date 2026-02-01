@@ -2,7 +2,7 @@ name: Security (CodeQL)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
   schedule:
     - cron: "22 4 * * 6" # Saturdays 04:22 UTC

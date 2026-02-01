@@ -5,6 +5,10 @@
 [![Monthly Downloads](https://poser.pugx.org/nsa-yoda/phpbenchtime/d/monthly.png)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
 [![License](https://poser.pugx.org/nsa-yoda/phpbenchtime/license.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
 
+[![CI](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/ci.yml/badge.svg)](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/ci.yml)
+[![Dependabot Updates](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/dependabot/dependabot-updates)
+[![pages-build-deployment](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/pages/pages-build-deployment)
+
 A lightweight benchmark timer for PHP with laps, pause/unpause support, and a simple summary output.  
 Designed for clarity, correctness, and minimal overhead.
 
