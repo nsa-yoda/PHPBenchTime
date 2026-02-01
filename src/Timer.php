@@ -158,9 +158,13 @@ class Timer
      */
     public function summary(): array
     {
-        $nowOrEnd   = ($this->endTime > 0.0) ? $this->endTime : $this->getCurrentTime();
-        $rawTotal   = $nowOrEnd - $this->startTime;
-        $activeTotal = max(0.0, $rawTotal - $this->totalPauseTime);
+        if ($this->startTime > 0.0) {
+            $nowOrEnd = ($this->endTime > 0.0) ? $this->endTime : $this->getCurrentTime();
+            $rawTotal = $nowOrEnd - $this->startTime;
+            $activeTotal = max(0.0, $rawTotal - $this->totalPauseTime);
+        } else {
+            $activeTotal = 0.0;
+        }
 
         return array(
             'running' => $this->state->value,
@@ -168,7 +172,7 @@ class Timer
             'end'     => $this->endTime,
             'total'   => $activeTotal,
             'paused'  => $this->totalPauseTime,
-            'laps'    => $this->laps
+            'laps'    => $this->laps,
         );
     }
 
