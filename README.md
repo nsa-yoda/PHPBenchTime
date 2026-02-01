@@ -1,11 +1,9 @@
 # PHPBenchTime v3.0.0
 
-[![Latest Stable Version](https://poser.pugx.org/jsanc623/phpbenchtime/version.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![Total Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/downloads.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![Monthly Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/d/monthly.png)](https://packagist.org/packages/jsanc623/phpbenchtime)
-[![License](https://poser.pugx.org/jsanc623/phpbenchtime/license.svg)](https://packagist.org/packages/jsanc623/phpbenchtime)
-
 [![CI](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/ci.yml/badge.svg)](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/ci.yml)
+[![Total Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/downloads)](https://packagist.org/packages/jsanc623/phpbenchtime)
+[![Monthly Downloads](https://poser.pugx.org/jsanc623/phpbenchtime/d/monthly)](https://packagist.org/packages/jsanc623/phpbenchtime)
+[![License](https://poser.pugx.org/jsanc623/phpbenchtime/license)](https://packagist.org/packages/jsanc623/phpbenchtime)
 [![Dependabot Updates](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/dependabot/dependabot-updates)
 [![pages-build-deployment](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/nsa-yoda/PHPBenchTime/actions/workflows/pages/pages-build-deployment)
 
