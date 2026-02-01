@@ -1,156 +1,201 @@
-PHPBenchTime v2.1.0
-===================
+# PHPBenchTime v3.0.0
 
 [![Latest Stable Version](https://poser.pugx.org/nsa-yoda/phpbenchtime/version.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
 [![Total Downloads](https://poser.pugx.org/nsa-yoda/phpbenchtime/downloads.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
 [![Monthly Downloads](https://poser.pugx.org/nsa-yoda/phpbenchtime/d/monthly.png)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
 [![License](https://poser.pugx.org/nsa-yoda/phpbenchtime/license.svg)](https://packagist.org/packages/nsa-yoda/phpbenchtime)
-[![Build Status](https://travis-ci.org/nsa-yoda/PHPBenchTime.svg)](https://travis-ci.org/nsa-yoda/PHPBenchTime)
 
-A light benchmark timer class for PHP. PHPBenchTime is quite simple to use and is loaded with functionality - including detailed summary data, easily readable source, a robust lap system and pause/unpause functionality.
+A lightweight benchmark timer for PHP with laps, pause/unpause support, and a simple summary output.  
+Designed for clarity, correctness, and minimal overhead.
 
-Also, please check out my Python version of this package: [PyBenchTime Python Package](https://github.com/nsa-yoda/PyBenchTime)
+> **PHPBenchTime v3.0 requires PHP 8.1+** (enum-backed state, typed properties, private internals).
 
-On Packagist
-============
-https://packagist.org/packages/nsa-yoda/phpbenchtime
+If you’re interested, there is also a Python implementation:  
+👉 **PyBenchTime** — https://github.com/nsa-yoda/PyBenchTime
 
-Methods
-=======
-```
-public start()
-public end()
-public reset()
-public lap()
-public summary()
-public pause()
-public unPause()
-private endLap()
-private getCurrentTime()
+---
+
+## Installation
+
+Install via Composer:
+
+```bash
+composer require nsa-yoda/phpbenchtime
 ```
 
-Properties
-==========
-```
-private startTime
-private endTime
-private pauseTime
-private laps
-private lapCount
-```
+Autoloading is handled automatically.
 
+## Quick Start
 
-Usage
-=====
+```php 
+<?php
 
-You should see the Usage.php file in source for the best how to documentation. However, here's an overview:
+require __DIR__ . '/vendor/autoload.php';
 
-Load and initiate the PHPBenchTime Timer:
-```
-require('PHPBenchTime.php');
 use PHPBenchTime\Timer;
-$T = new Timer;
-```
 
-
-That was easy! Now lets start a new timer:
-
-```
-$T->start();
-```
-
-Then lets just sleep for 3 seconds:
-```
-sleep(3);
-```
-
-Now, lets end the timer, and put results in $time:
-```
-$time = $T->end();
-```
-
-When we end a timer, we receive an array back, containing the start time,
-end time and difference between start and end times:
-```
-Array (
-    [running] => false
-    [start] => 1406146951.9998
-    [end] => 1406146952.0638
-    [total] => 0.0019998550415039
-    [paused] => 0
-    [laps] => Array (
-        [0] => Array (
-            [name] => start
-            [start] => 1406146951.9998
-            [end] => 1406146952.0018
-            [total] => 0.0019998550415039
-        )
-    )
-)
-```
-
-Advanced Usage : Laps
-=====================
-
-PHPBenchTime also allows you to set laps between code execution, which allows 
-you to determine what part of your code is causing a bottleneck.
-
-Let's sleep for a couple of seconds between laps:
-```
+$t = new Timer();
+$t->start();
 sleep(1);
-$T->lap();
-sleep(2);
-$T->lap();
+$t->end();
+
+print_r($t->summary());
+?>
 ```
 
-Now, let's end the timer:
-```
-$time = $T->end();
+## Core Concepts
+
+- Timers are stateful and controlled via methods only
+- All internal properties are private
+- State is represented by a PHP 8.1 enum
+- All timings are floats (seconds, from microtime(true))
+- summary() returns a read-only snapshot
+
+## Public API
+
+### Methods
+
+```php
+start(string $name = "start"): void
+end(): void
+reset(): void
+lap(?string $name = null): void
+summary(): array
+pause(): void
+unpause(): void
 ```
 
-Let's see the results:
+### Read-only Getters
+
+```php
+getState(): TimerState
+getStartTime(): float
+getEndTime(): float
+getPauseTime(): float
+getTotalPauseTime(): float
+getLaps(): array
+getLapCount(): int
 ```
-Array (
-    [running] => false
-    [start] => 1406146951.9998
-    [end] => 1406146952.0638
-    [total] => 0.063999891281128
-    [paused] => 0.041000127792358
-    [laps] => Array (
-        [0] => Array (
-            [name] => start
-            [start] => 1406146951.9998
-            [end] => 1406146952.0018
-            [total] => 0.0019998550415039
+
+## Basic Usage
+
+```php
+$t = new Timer();
+$t->start();
+
+sleep(3);
+
+$t->end();
+
+print_r($t->summary());
+```
+
+### Example Output
+
+```php
+Array
+(
+    [running] => -1
+    [start]   => 1706812345.1234
+    [end]     => 1706812348.1239
+    [total]   => 3.0005
+    [paused]  => 0
+    [laps]    => Array
+        (
+            [0] => Array
+                (
+                    [name]  => start
+                    [start] => 1706812345.1234
+                    [end]   => 1706812348.1239
+                    [total] => 3.0005
+                )
         )
-        [1] => Array (
-            [name] => 1
-            [start] => 1406146952.0018
-            [end] => 1406146952.0028
-            [total] => 0.0010001659393311
-        )
-        [2] => Array (
-            [name] => 2
-            [start] => 1406146952.0028
-            [end] => 1406146952.0128
-            [total] => 0.0099999904632568
-        )
-    )
 )
 ```
 
-Advanced Usage
-==============
-PHPBenchTime allows you to do named laps, as well as to pause and unpause the timer (say you want to make a network
-call or a call out to the database, but don't want to include that time in your benchmark - pause and then unpause after
-you receive the network/database data).
+running is the enum value:
+1 = RUNNING, 0 = PAUSED, -1 = STOPPED
 
-HISTORY
-=======
+### Laps
 
-* v1.0.0: Static Birth! 
-* v1.1.0: Static Namespaces! 
-* v1.2.0: Non-Static Namespaces! 
-* v1.3.0: Laps! Laps! Laps! 
-* v2.0.0: Complete rewrite, adds pause, unpause, central lap system and more detailed summary
-* v2.1.0: Performance enhancements, unit tests, etc
+Laps allow you to isolate portions of execution time.
+Each call to lap() automatically closes the previous lap.
+
+```php
+$t = new Timer();
+$t->start();
+
+sleep(1);
+$t->lap();
+
+sleep(2);
+$t->lap();
+
+$t->end();
+```
+
+### Named Laps
+
+For clearer output, provide names to start() and lap():
+
+```php
+$t = new Timer();
+$t->start('bootstrap');
+
+sleep(1);
+$t->lap('database');
+
+sleep(1);
+$t->lap('render');
+
+$t->end();
+```
+
+### Pause & Unpause
+
+Paused time is excluded from total runtime but still tracked.
+
+```php
+$t = new Timer();
+$t->start();
+
+sleep(1);
+$t->lap('before pause');
+
+$t->pause();
+sleep(3); // excluded from total
+$t->unpause();
+
+sleep(1);
+$t->lap('after pause');
+
+$t->end();
+```
+
+Paused duration is available via:
+
+```php
+$t->getTotalPauseTime();
+```
+
+Calling end() while paused will automatically finalize the pause.
+
+## Documentation
+
+A richer usage guide (with examples and explanations) is available in: `docs/index.html`
+
+This file can be found on th rpojrects GitHub Pages
+
+## History
+
+- v3.0.0 - Changes to tighten up the codebase for PHP8.1, strongly typed, and enums etc
+- v2.1.0 - Performance improvements, unit tests, PHP 8.1 modernization
+- v2.0.0 - Complete rewrite: pause/unpause, centralized lap system, detailed summary
+- v1.3.0 - Laps, laps, laps
+- v1.2.0 - Non-static namespaces
+- v1.1.0 - Static namespaces
+- v1.0.0 - Static birth
+
+
+
+

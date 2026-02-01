@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PHPBenchTime — Usage</title>
+
+    <style>
+        :root{
+            --bg: #0b1020;
+            --panel: rgba(255,255,255,0.06);
+            --panel-2: rgba(255,255,255,0.09);
+            --text: rgba(255,255,255,0.92);
+            --muted: rgba(255,255,255,0.68);
+            --border: rgba(255,255,255,0.12);
+            --accent: #7dd3fc;
+            --accent-2: #a78bfa;
+            --shadow: 0 16px 48px rgba(0,0,0,0.45);
+            --radius: 16px;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
+        body{
+            margin: 0;
+            font-family: var(--sans);
+            color: var(--text);
+            background:
+                    radial-gradient(1200px 600px at 15% 10%, rgba(125, 211, 252, 0.18), transparent 60%),
+                    radial-gradient(900px 500px at 85% 0%, rgba(167, 139, 250, 0.16), transparent 65%),
+                    radial-gradient(900px 700px at 50% 120%, rgba(34, 211, 238, 0.10), transparent 60%),
+                    var(--bg);
+            line-height: 1.5;
+        }
+
+        a{ color: var(--accent); text-decoration: none; }
+        a:hover{ text-decoration: underline; }
+
+        .wrap{
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 18px 60px;
+        }
+
+        header{
+            margin: 22px 0 18px;
+            padding: 22px 22px 18px;
+            background: linear-gradient(180deg, var(--panel-2), var(--panel));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        header h1{
+            margin: 0 0 8px;
+            font-size: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        header p{
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .badges{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+        .badge{
+            font-size: 12px;
+            color: rgba(255,255,255,0.86);
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            border-radius: 999px;
+            padding: 6px 10px;
+        }
+        .badge strong{ color: var(--text); }
+
+        nav{
+            margin: 18px 0 26px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+        }
+        nav .label{
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        nav .links{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav .links a{
+            font-size: 13px;
+            padding: 7px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.05);
+        }
+        nav .links a:hover{
+            background: rgba(255,255,255,0.08);
+            text-decoration: none;
+        }
+
+        section{
+            margin: 18px 0;
+            padding: 18px 18px 16px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+        }
+
+        section h2{
+            margin: 0 0 8px;
+            font-size: 18px;
+            letter-spacing: -0.01em;
+        }
+
+        section p{
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        pre{
+            margin: 0;
+            padding: 14px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(0,0,0,0.28);
+            overflow: auto;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+        code{
+            font-family: var(--mono);
+            font-size: 13px;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.90);
+        }
+
+        .note{
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(125, 211, 252, 0.25);
+            background: rgba(125, 211, 252, 0.08);
+            color: rgba(255,255,255,0.86);
+            font-size: 13px;
+        }
+
+        footer{
+            margin-top: 26px;
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .k{
+            color: rgba(125, 211, 252, 0.95);
+        }
+        .v{
+            color: rgba(167, 139, 250, 0.95);
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <header>
+        <h1>PHPBenchTime</h1>
+        <p>A lightweight benchmark timer with laps and pause/unpause. This page is written for the PHP 8.1+ version (enum-backed state, private properties, getters).</p>
+
+        <div class="badges">
+            <div class="badge"><strong>Requires:</strong> PHP 8.1+</div>
+            <div class="badge"><strong>Namespace:</strong> PHPBenchTime</div>
+            <div class="badge"><strong>Class:</strong> Timer</div>
+            <div class="badge"><strong>Output:</strong> summary() array</div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="label">On this page</div>
+        <div class="links">
+            <a href="#install">Install</a>
+            <a href="#quickstart">Quick start</a>
+            <a href="#laps">Laps</a>
+            <a href="#named-laps">Named laps</a>
+            <a href="#pause">Pause &amp; unpause</a>
+            <a href="#summary">Summary output</a>
+            <a href="#getters">Getters</a>
+        </div>
+    </nav>
+
+    <section id="install">
+        <h2>Install</h2>
+        <p>Recommended: install via Composer and rely on autoloading.</p>
+        <pre><code>composer require nsa-yoda/phpbenchtime</code></pre>
+
+        <div class="note">
+            If you're not using Composer, you can still include the source file(s) directly — but GitHub Pages docs assume Composer usage.
+        </div>
+    </section>
+
+    <section id="quickstart">
+        <h2>Quick start</h2>
+        <p>Start a timer, do some work, then end it and read the summary.</p>
+        <pre><code>&lt;?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use PHPBenchTime\Timer;
+
+$t = new Timer();
+$t-&gt;start('start');
+
+usleep(120_000); // 120ms
+
+$t-&gt;end();
+
+print_r($t-&gt;summary());</code></pre>
+    </section>
+
+    <section id="laps">
+        <h2>Laps</h2>
+        <p>Use <code>lap()</code> to split timing into segments. Each new lap automatically ends the previous lap.</p>
+        <pre><code>&lt;?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use PHPBenchTime\Timer;
+
+$t = new Timer();
+$t-&gt;start();
+
+usleep(50_000);
+$t-&gt;lap(); // lap 1 ends, lap 2 begins
+
+usleep(75_000);
+$t-&gt;lap(); // lap 2 ends, lap 3 begins
+
+usleep(25_000);
+$t-&gt;end(); // ends timer and ends the final lap
+
+print_r($t-&gt;summary());</code></pre>
+    </section>
+
+    <section id="named-laps">
+        <h2>Named laps</h2>
+        <p>Pass a name to <code>start()</code> and <code>lap()</code> for more readable output.</p>
+        <pre><code>&lt;?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use PHPBenchTime\Timer;
+
+$t = new Timer();
+$t-&gt;start('boot');
+
+usleep(40_000);
+$t-&gt;lap('query db');
+
+usleep(60_000);
+$t-&gt;lap('render');
+
+usleep(20_000);
+$t-&gt;end();
+
+print_r($t-&gt;summary());</code></pre>
+    </section>
+
+    <section id="pause">
+        <h2>Pause and unpause</h2>
+        <p>Use <code>pause()</code> and <code>unpause()</code> to exclude time from the timer’s <span class="k">total</span>. Paused time is tracked in <span class="k">paused</span>.</p>
+        <pre><code>&lt;?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use PHPBenchTime\Timer;
+
+$t = new Timer();
+$t-&gt;start('work begins');
+
+usleep(50_000);
+$t-&gt;lap('before pause');
+
+$t-&gt;pause();
+usleep(200_000); // ignored by total (counted as paused)
+$t-&gt;unpause();
+
+usleep(50_000);
+$t-&gt;lap('after pause');
+
+$t-&gt;end();
+
+print_r($t-&gt;summary());</code></pre>
+
+        <div class="note">
+            Calling <code>end()</code> while paused will finalize the pause automatically before stopping.
+        </div>
+    </section>
+
+    <section id="summary">
+        <h2>Summary output</h2>
+        <p><code>summary()</code> returns an array. Values are <em>floats</em> in seconds (from <code>microtime(true)</code>).</p>
+        <pre><code>Array
+(
+    [running] =&gt; -1
+    [start]   =&gt; 1706812345.1234
+    [end]     =&gt; 1706812345.4567
+    [total]   =&gt; 0.2333
+    [paused]  =&gt; 0.2000
+    [laps]    =&gt; Array
+        (
+            [0] =&gt; Array
+                (
+                    [name]  =&gt; boot
+                    [start] =&gt; 1706812345.1234
+                    [end]   =&gt; 1706812345.2001
+                    [total] =&gt; 0.0767
+                )
+            ...
+        )
+)</code></pre>
+
+        <div class="note">
+            <span class="k">running</span> is an <strong>int</strong> representing the enum value: <span class="v">1</span> running, <span class="v">0</span> paused, <span class="v">-1</span> stopped.
+        </div>
+    </section>
+
+    <section id="getters">
+        <h2>Read-only access (getters)</h2>
+        <p>All internal state is private. Use getters to inspect it without mutating anything.</p>
+        <pre><code>&lt;?php
+
+use PHPBenchTime\Timer;
+use PHPBenchTime\TimerState;
+
+$t = new Timer();
+$t-&gt;start();
+
+$state = $t-&gt;getState(); // TimerState enum
+if ($state === TimerState::RUNNING) {
+    // ...
+}
+
+$start  = $t-&gt;getStartTime();       // float
+$end    = $t-&gt;getEndTime();         // float
+$paused = $t-&gt;getTotalPauseTime();  // float
+$laps   = $t-&gt;getLaps();            // array
+$count  = $t-&gt;getLapCount();        // int</code></pre>
+    </section>
+
+    <footer>
+        <div>PHPBenchTime &middot; MIT License &middot; Docs for the PHP 8.1+ release</div>
+    </footer>
+</div>
+</body>
+</html>
