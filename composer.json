@@ -25,7 +25,7 @@
     },
     "scripts": {
         "test": "phpunit --no-coverage"
-    }
+    },
     "autoload": {
         "psr-4": {
             "PHPBenchTime\\": "src/"
